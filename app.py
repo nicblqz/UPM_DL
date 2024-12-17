@@ -1,15 +1,9 @@
 import streamlit as st
-import numpy as np
 import torch
-import cv2
 from PIL import Image
-import os
-import io
+
 from torchvision import models, transforms
 import torch.nn as nn
-from torchvision.io import read_image, ImageReadMode
-from skimage.color import lab2rgb
-from streamlit_image_comparison import image_comparison
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
