@@ -55,7 +55,6 @@ def main():
     uploaded_file = st.file_uploader(
         "Choose one or more images...", 
         type=["jpg", "jpeg", "png"], 
-        accept_multiple_files=True
     )
     
     if uploaded_file is not None:
