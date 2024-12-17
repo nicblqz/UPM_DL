@@ -1,9 +1,4 @@
 streamlit
-streamlit-image-comparison
-numpy
 torch
-matplotlib
-pillow
-opencv-python
-scikit-image
 torchvision
+Pillow
