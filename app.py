@@ -17,11 +17,11 @@ def load_model():
     checkpoint = torch.load("fruit_classifier.pth", map_location=device)
     num_classes = checkpoint['fc.weight'].shape[0]
     model = models.resnet18(pretrained=False)
-    model.fc = nn.Linear(model.fc.in_features, num_classes)  # Update for number of classes (Fruits-360 has 131 classes)
+    model.fc = nn.Linear(model.fc.in_features, num_classes)  
     model.load_state_dict(checkpoint)
     model = model.to(device)
     model.eval()
-    return model, num_classes
+    return model
 
 def main():
     st.set_page_config(
@@ -35,9 +35,8 @@ def main():
     )
 
     st.title("Fruit recognition")
-    print("Loading model...")
     class_names = open("classes.txt").read().splitlines()
-    model, num_classes = load_model()
+    model = load_model()
 
     st.title("Fruit recognition")
     st.write("Please upload one or more images, and we will try to recognize the fruits in them!")
@@ -46,7 +45,7 @@ def main():
     st.sidebar.write("Upload one or more images, and we will try to recognize the fruits in them using a convolutional neural network.")
     
     st.sidebar.title("Authors")
-    st.sidebar.write("This application was created by Nicolas Blanquez, Yasmine ... and Ayman ....")
+    st.sidebar.write("This application was created by Nicolas Blanquez, Yasmine Mouhoubi and Ayman Habitou")
 
     st.sidebar.title("Source code")
     st.sidebar.write("The source code for this application can be found on [GitHub](https://github.com/nicblqz/UPM_DL)")
@@ -60,7 +59,6 @@ def main():
         # Load the image
         image = Image.open(uploaded_file).convert("RGB")
         st.image(image, caption="Uploaded Image", use_column_width=True)
-        st.write("Classifying...")
 
         # Preprocess the image
         input_image = transform(image).unsqueeze(0).to(device)
