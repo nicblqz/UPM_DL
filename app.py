@@ -16,13 +16,12 @@ transform = transforms.Compose([
 def load_model():
     checkpoint = torch.load("fruit_classifier.pth", map_location=device)
     num_classes = checkpoint['fc.weight'].shape[0]
-    print("num classes ", num_classes)
     model = models.resnet18(pretrained=False)
     model.fc = nn.Linear(model.fc.in_features, num_classes)  # Update for number of classes (Fruits-360 has 131 classes)
     model.load_state_dict(checkpoint)
     model = model.to(device)
     model.eval()
-    return model
+    return model, num_classes
 
 def main():
     st.set_page_config(
@@ -34,8 +33,11 @@ def main():
             'About': "This application recognizes fruits from images, the model used is resnet18 and was trained with the fruits-360 dataset."
         }
     )
+
+    st.title("Fruit recognition")
+    print("Loading model...")
     class_names = open("classes.txt").read().splitlines()
-    model = load_model()
+    model, num_classes = load_model()
 
     st.title("Fruit recognition")
     st.write("Please upload one or more images, and we will try to recognize the fruits in them!")
