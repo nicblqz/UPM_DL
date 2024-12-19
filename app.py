@@ -15,7 +15,7 @@ transform = transforms.Compose([
 
 def load_model():
     model = models.resnet18(pretrained=False)
-    model.fc = nn.Linear(model.fc.in_features, 131)  # Update for number of classes (Fruits-360 has 131 classes)
+    model.fc = nn.Linear(model.fc.in_features,len(open("classes.txt").read().splitlines()))  # Update for number of classes (Fruits-360 has 131 classes)
     model.load_state_dict(torch.load("fruit_classifier.pth", map_location=device))
     model = model.to(device)
     model.eval()
