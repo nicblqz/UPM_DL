@@ -58,7 +58,7 @@ def main():
     if uploaded_file is not None:
         # Load the image
         image = Image.open(uploaded_file).convert("RGB")
-        st.image(image, caption="Uploaded Image", use_column_width=True)
+        st.image(image, caption="Uploaded Image", use_container_width=True)
 
         # Preprocess the image
         input_image = transform(image).unsqueeze(0).to(device)
